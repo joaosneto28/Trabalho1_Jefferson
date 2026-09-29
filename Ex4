@@ -1,0 +1,52 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package com.mycompany.mavenproject1;
+import java.util.Scanner;
+/**
+ *
+ * @author fef
+ */
+public class ex4_Rotação_de_matriz {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner ler = new Scanner(System.in);
+        int[][] original = new int[5][5];
+        int[][] rotacionada = new int[5][5];
+
+        System.out.println("Digite os elementos da matriz 5x5:");
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                original[i][j] = ler.nextInt();
+            }
+        }
+
+        // Rotação de 90 graus no sentido horário:
+        // A linha 'i' vira a coluna '4 - i' da nova matriz
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                rotacionada[j][4 - i] = original[i][j];
+            }
+        }
+
+        System.out.println("\n--- MATRIZ ORIGINAL ---");
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.printf("%3d ", original[i][j]);
+            }
+            System.out.println();
+        }
+
+        System.out.println("\n--- MATRIZ ROTACIONADA (90 GRAUS HORARIO) ---");
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                System.out.printf("%3d ", rotacionada[i][j]);
+            }
+            System.out.println();
+        }
+    }
+}
