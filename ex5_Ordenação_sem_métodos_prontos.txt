@@ -1,0 +1,56 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package com.mycompany.mavenproject1;
+import java.util.Scanner;
+/**
+ *
+ * @author fef
+ */
+public class ex5_Ordenação_sem_métodos_prontos {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner ler = new Scanner(System.in);
+        int[] original = new int[20];
+        int[] ordenado = new int[20];
+
+        System.out.println("Digite 20 numeros inteiros:");
+        for (int i = 0; i < 20; i++) {
+            original[i] = ler.nextInt();
+            ordenado[i] = original[i]; // Copia para o vetor que será ordenado
+        }
+
+        int comparacoes = 0;
+        int trocas = 0;
+
+        // Algoritmo de Ordenação: Bubble Sort
+        for (int i = 0; i < 20 - 1; i++) {
+            for (int j = 0; j < 20 - 1 - i; j++) {
+                comparacoes++;
+                if (ordenado[j] > ordenado[j + 1]) {
+                    int temp = ordenado[j];
+                    ordenado[j] = ordenado[j + 1];
+                    ordenado[j + 1] = temp;
+                    trocas++;
+                }
+            }
+        }
+
+        // Mediana: média dos dois elementos centrais (índices 9 e 10)
+        double mediana = (ordenado[9] + ordenado[10]) / 2.0;
+
+        System.out.print("\nVetor Original: ");
+        for (int v : original) System.out.print(v + " ");
+
+        System.out.print("\nVetor Ordenado: ");
+        for (int v : ordenado) System.out.print(v + " ");
+
+        System.out.println("\n\nQuantidade de comparacoes: " + comparacoes);
+        System.out.println("Quantidade de trocas: " + trocas);
+        System.out.println("Mediana: " + mediana);
+    }   
+}

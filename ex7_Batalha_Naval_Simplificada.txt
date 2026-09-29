@@ -1,0 +1,73 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package com.mycompany.mavenproject1;
+import java.util.Scanner;
+/**
+ *
+ * @author fef
+ */
+public class ex7_Batalha_Naval_Simplificada {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner ler = new Scanner(System.in);
+        int[][] tabuleiro = new int[8][8];
+        System.out.println("=== CADASTRO DOS NAVIOS (OCULTO PARA O JOGADOR) ===");
+        int naviosPosicionados = 0;
+        while (naviosPosicionados < 5) {
+            System.out.printf("Informe a posicao do Navio %d (linha [0-7] e coluna [0-7]): ", naviosPosicionados + 1);
+            int l = ler.nextInt();
+            int c = ler.nextInt();
+            if (l < 0 || l > 7 || c < 0 || c > 7) {
+                System.out.println("Posicao fora do tabuleiro! Tente novamente.");
+            } else if (tabuleiro[l][c] == 1) {
+                System.out.println("Ja existe um navio nessa posicao! Tente novamente.");
+            } else {
+                tabuleiro[l][c] = 1;
+                naviosPosicionados++;
+            }
+        }
+        System.out.println("\n" + "=".repeat(40));
+        System.out.println("=== INICIO DA PARTIDA DE BATALHA NAVAL ===");
+        System.out.println("Voce tem ate 15 disparos para destruir 5 navios.");
+        int acertos = 0;
+        int erros = 0;
+        int repetidos = 0;
+        int disparosFeitos = 0;
+        while (disparosFeitos < 15 && acertos < 5) {
+            System.out.printf("\nDisparo %d de 15. Digite linha [0-7] e coluna [0-7]: ", disparosFeitos + 1);
+            int l = ler.nextInt();
+            int c = ler.nextInt();
+            if (l < 0 || l > 7 || c < 0 || c > 7) {
+                System.out.println("Disparo fora do tabuleiro! Tente novamente.");
+                continue;
+            }
+            if (tabuleiro[l][c] == 2 || tabuleiro[l][c] == 3) {
+                System.out.println("-> DISPARO REPETIDO! Posicao ja atingida anteriormente.");
+                repetidos++;
+            } else if (tabuleiro[l][c] == 1) {
+                System.out.println("-> ACERTOU! Voce destruiu um navio!");
+                tabuleiro[l][c] = 3;
+                acertos++;
+            } else { // era 0 (água)
+                System.out.println("-> ERROU! Apenas agua.");
+                tabuleiro[l][c] = 2;
+                erros++;
+            }
+            disparosFeitos++;
+        }
+        System.out.println("\n=== FIM DE JOGO ===");
+        if (acertos == 5) {
+            System.out.println("Parabens! Voce destruiu todos os navios!");
+        } else {
+            System.out.println("Seus disparos acabaram!");
+        }
+        System.out.println("Total de Acertos: " + acertos);
+        System.out.println("Total de Erros: " + erros);
+        System.out.println("Total de Disparos Repetidos: " + repetidos);
+    }  
+}

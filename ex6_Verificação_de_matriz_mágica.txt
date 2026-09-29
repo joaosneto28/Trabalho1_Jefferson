@@ -1,0 +1,89 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package com.mycompany.mavenproject1;
+import java.util.Scanner;
+/**
+ *
+ * @author fef
+ */
+public class ex6_Verificação_de_matriz_mágica {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Scanner ler = new Scanner(System.in);
+        int[][] m = new int[3][3];
+
+        System.out.println("Digite os elementos da matriz 3x3:");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                m[i][j] = ler.nextInt();
+            }
+        }
+
+        boolean eMagica = true;
+        System.out.println("\n--- AVALIACAO DA MATRIZ ---");
+
+        // 1. Verificar se possui todos os números de 1 a 9 sem repetição
+        boolean[] presente = new boolean[10]; // índices de 1 a 9
+        boolean numerosValidos = true;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                int val = m[i][j];
+                if (val < 1 || val > 9 || presente[val]) {
+                    numerosValidos = false;
+                } else {
+                    presente[val] = true;
+                }
+            }
+        }
+
+        if (!numerosValidos) {
+            eMagica = false;
+            System.out.println("[-] Condicao NAO atendida: Nao contem exatamente todos os numeros de 1 a 9 sem repeticao.");
+        }
+
+        // Para um quadrado mágico 3x3 com números 1-9, a soma padrão de cada linha/coluna/diagonal é 15.
+        int somaRef = 15;
+
+        // 2. Verificar Linhas
+        for (int i = 0; i < 3; i++) {
+            int somaLinha = m[i][0] + m[i][1] + m[i][2];
+            if (somaLinha != somaRef) {
+                eMagica = false;
+                System.out.println("[-] Condicao NAO atendida: Linha " + i + " tem soma " + somaLinha + " (esperado: 15).");
+            }
+        }
+
+        // 3. Verificar Colunas
+        for (int j = 0; j < 3; j++) {
+            int somaColuna = m[0][j] + m[1][j] + m[2][j];
+            if (somaColuna != somaRef) {
+                eMagica = false;
+                System.out.println("[-] Condicao NAO atendida: Coluna " + j + " tem soma " + somaColuna + " (esperado: 15).");
+            }
+        }
+
+        // 4. Verificar Diagonais
+        int somaDiagPrincipal = m[0][0] + m[1][1] + m[2][2];
+        int somaDiagSecundaria = m[0][2] + m[1][1] + m[2][0];
+
+        if (somaDiagPrincipal != somaRef) {
+            eMagica = false;
+            System.out.println("[-] Condicao NAO atendida: Diagonal Principal tem soma " + somaDiagPrincipal + " (esperado: 15).");
+        }
+
+        if (somaDiagSecundaria != somaRef) {
+            eMagica = false;
+            System.out.println("[-] Condicao NAO atendida: Diagonal Secundaria tem soma " + somaDiagSecundaria + " (esperado: 15).");
+        }
+
+        if (eMagica) {
+            System.out.println("[+] A MATRIZ E MAGICA! Todas as condicoes foram atendidas com sucesso.");
+        }
+    }   
+}
